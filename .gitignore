@@ -1,0 +1,83 @@
+# ==========================
+# Backend / .NET
+# ==========================
+
+# Build outputs
+backend/src/**/bin/
+backend/src/**/obj/
+backend/tests/**/bin/
+backend/tests/**/obj/
+backend/src/**/out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sln.iml
+
+# Visual Studio
+*.VC.db
+*.VC.opendb
+*.pdb
+*.ipch
+*.aps
+*.ncb
+*.sdf
+*.cachefile
+
+# ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet packages
+*.nupkg
+*.snupkg
+backend/packages/
+.nuget/
+
+# Publish / Deployment
+publish/
+**/publish/
+
+# Logs
+*.log
+logs/
+
+# Secrets
+secrets.json
+*.secret.json
+
+# dotnet tool cache
+*.dotnet-tools.json
+
+# Test coverage
+coverage/
+*.coverage
+*.coveragexml
+*.trx
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# ==========================
+# React / Web
+# ==========================
+
+# Node modules & build
+node_modules/
+build/
+dist/
+
+# Web klasörü dahil, ama gereksizleri ignore et
+!/web
+/web/node_modules
+/web/build
+/web/dist
+/web/.DS_Store
+
