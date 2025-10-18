@@ -6,11 +6,19 @@ using EnglishCardApp.Application.Interfaces;
 using EnglishCardApp.Domain.Entities;
 using GenericRepository;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using TS.Result;
 
 namespace EnglishCardApp.Application.Word.Command;
 
-public sealed record CreateWordCommand(string Turkish, string English, string ExampleSentence, string ImageUrl) : IRequest<Result<string>>;
+public sealed record CreateWordCommand(
+    string English,
+    string Turkish,
+    string ExampleSentence,
+    IFormFile? ImageFile
+) : IRequest<Result<string>>;
+
+
 
 internal sealed class CreateWordCommandHandler(IWordRepository wordRepository, IUnitOfWork unitOfWork) : IRequestHandler<CreateWordCommand, Result<string>>
 {
@@ -23,12 +31,23 @@ internal sealed class CreateWordCommandHandler(IWordRepository wordRepository, I
             return Result<string>.Failure("Kelime zaten mevcut!");
         }
 
+        string imageUrl = string.Empty;
+        if (request.ImageFile != null)
+        {
+            var fileName = Path.GetFileName(request.ImageFile.FileName);
+            var savePath = Path.Combine("wwwroot/images", fileName);
+            Directory.CreateDirectory(Path.GetDirectoryName(savePath)!);
+            using var stream = File.Create(savePath);
+            await request.ImageFile.CopyToAsync(stream, cancellationToken);
+            imageUrl = "/images/" + fileName;
+        }
+
         Words word = new()
         {
-            Turkish = request.Turkish,
             English = request.English,
+            Turkish = request.Turkish,
             ExampleSentence = request.ExampleSentence,
-            ImageUrl = request.ImageUrl,
+            ImageUrl = imageUrl,
         };
 
         await wordRepository.AddAsync(word, cancellationToken);

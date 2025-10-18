@@ -1,6 +1,7 @@
 using EnglishCardApp.Application;
 using EnglishCardApp.Infrastructure;
 using EnglishCardApp.WebAPI.Modules;
+using Microsoft.Extensions.FileProviders;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("http://localhost:3000")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
@@ -23,6 +24,13 @@ builder.Services.AddInfrastructureRegistrar(builder.Configuration);
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    RequestPath = ""
+});
 
 app.UseHttpsRedirection();
 
