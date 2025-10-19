@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Navbar } from "@/components/Navbar";
+import { HeroUIProvider } from "@heroui/system";
 
 export const metadata: Metadata = {
   title: "LearningEnglish",
@@ -16,8 +17,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
-        <Toaster richColors />
+        <HeroUIProvider>
+          <main>
+            <Navbar />
+            {children}
+          </main>
+          <Toaster richColors />
+        </HeroUIProvider>
       </body>
     </html>
   );

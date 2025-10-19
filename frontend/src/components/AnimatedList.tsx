@@ -155,7 +155,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   return (
     <div className={`relative ${className} `}>
       {/* Başlıklar */}
-      <div className="bg-[#001233] p-4 rounded-lg grid grid-cols-5 gap-4 mb-2 font-bold text-white">
+      <div className="bg-[#001233] p-4 rounded-lg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-2 font-bold text-white">
         {headers.map((header) => (
           <div
             key={header}
@@ -169,7 +169,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       {/* Veriler */}
       <div
         ref={listRef}
-        className={`max-h-[600px] overflow-y-auto ${
+        className={`max-h-[600px] sm:max-h-[700px] overflow-y-auto ${
           displayScrollbar
             ? "[&::-webkit-scrollbar]:w-[8px] [&::-webkit-scrollbar-track]:bg-[#E1D9C8] [&::-webkit-scrollbar-thumb]:bg-[#C0BBAA] [&::-webkit-scrollbar-thumb]:rounded-[4px]"
             : "scrollbar-hide"
@@ -188,7 +188,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             onClick={() => onItemSelect?.(item, index)}
           >
             <div
-              className={`grid grid-cols-5 gap-4 p-4 h-32  justify-center items-center rounded-lg cursor-text ${
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 p-4 min-h-[32] justify-center items-center rounded-lg cursor-text ${
                 selectedIndex === index ? "bg-[#001233]" : "bg-[#33415c]"
               } ${itemClassName}`}
             >
@@ -201,11 +201,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                   >
                     {key === "imageUrl" && val ? (
                       <Image
+                        width={80}
+                        height={80}
                         src={`http://localhost:5196${val}`}
                         alt={item.English || "Word image"}
-                        width={90}
-                        height={90}
-                        className="object-cover overflow-hidden rounded-md flex justify-center"
+                        className="object-cover overflow-hidden rounded-md"
                       />
                     ) : key === "english" || key === "exampleSentence" ? (
                       <div className="flex items-center gap-2">
