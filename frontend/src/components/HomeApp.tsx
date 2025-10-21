@@ -93,9 +93,9 @@ export const PreviousIcon = ({
 };
 
 export default function HomeApp() {
-  const images = ["/flashcard.png", "/learn2.png"];
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
+  const images = ["/flashcard.png", "/learn2.png"];
 
   const carouselPrev = () => {
     setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -166,12 +166,12 @@ export default function HomeApp() {
                   radius="full"
                   variant="light"
                   className="mr-4"
-                  onClick={carouselPrev}
+                  onPress={() => carouselPrev()}
                 >
                   <PreviousIcon size={24} />
                 </Button>
                 <Button
-                  onClick={handlePlay}
+                  onPress={() => handlePlay()}
                   isIconOnly
                   radius="full"
                   variant="light"
@@ -184,7 +184,7 @@ export default function HomeApp() {
                   radius="full"
                   variant="light"
                   className="ml-4"
-                  onClick={carouselNext}
+                  onPress={() => carouselNext()}
                 >
                   <NextIcon size={24} />
                 </Button>

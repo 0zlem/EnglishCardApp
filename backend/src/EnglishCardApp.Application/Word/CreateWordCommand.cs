@@ -14,7 +14,7 @@ namespace EnglishCardApp.Application.Word.Command;
 public sealed record CreateWordCommand(
     string English,
     string Turkish,
-    string ExampleSentence,
+    string? ExampleSentence,
     IFormFile? ImageFile
 ) : IRequest<Result<string>>;
 

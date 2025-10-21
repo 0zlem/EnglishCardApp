@@ -14,6 +14,11 @@ export const getAllWords = async (): Promise<WordItem[]> => {
   return response.data.data;
 };
 
+export const getByIdword = async (Id: string) => {
+  const response = await apiClient.get(`/words/${Id}`);
+  return response.data.data;
+}
+
 export const createWord = async (formData: FormData) => {
   const response = await apiClient.post("/words/create", formData, {
     headers: {

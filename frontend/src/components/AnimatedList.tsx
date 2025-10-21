@@ -14,6 +14,7 @@ import { HiSpeakerWave } from "react-icons/hi2";
 import { toast } from "sonner";
 
 interface AnimatedItemProps {
+  onWordDeleted?: () => void;
   children: ReactNode;
   delay?: number;
   index: number;
@@ -47,6 +48,7 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
 };
 
 interface AnimatedListProps {
+  onWordDeleted?: () => void;
   items?: WordItem[];
   onItemSelect?: (item: WordItem, index: number) => void;
   showGradients?: boolean;
@@ -58,6 +60,7 @@ interface AnimatedListProps {
 }
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
+  onWordDeleted,
   items = [],
   onItemSelect,
   showGradients = true,
@@ -147,6 +150,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
     console.log("Silinecek kelimenin Id'si:", itemId);
     if (result.isSuccessful) {
       toast.success("Kelime silindi!");
+      onWordDeleted?.();
     } else {
       toast.error("Silme başarısız: " + result.message);
     }

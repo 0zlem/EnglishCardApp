@@ -22,7 +22,7 @@ export default function RootLayout({
             <Navbar />
             {children}
           </main>
-          <Toaster richColors />
+          <Toaster richColors toastOptions={{ className: "z-50" }} />
         </HeroUIProvider>
       </body>
     </html>

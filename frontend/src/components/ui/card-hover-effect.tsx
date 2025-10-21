@@ -26,7 +26,13 @@ const formSchema = z.object({
   imageFile: z.any().optional(),
 });
 
-export const HoverEffect = ({ className }: { className?: string }) => {
+export const HoverEffect = ({
+  className,
+  onWordCreated,
+}: {
+  className?: string;
+  onWordCreated?: () => void;
+}) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -53,6 +59,7 @@ export const HoverEffect = ({ className }: { className?: string }) => {
       await createWord(formData);
       toast.success("Kelime başarıyla eklendi!");
       form.reset();
+      onWordCreated?.();
     } catch (error) {
       toast.error("Kelime eklenirken hata oluştu.");
       console.error(error);
