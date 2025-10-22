@@ -2,10 +2,10 @@ import apiClient from "./apiClient";
 
 export interface WordItem {
   id: string; 
-  English: string;
-  Turkish: string;
-  "Example Sentence": string;
-  Image?: File | string; 
+  english: string;
+  turkish: string;
+  exampleSentence?: string;
+  imageUrl?: File | string; 
 }
 
 

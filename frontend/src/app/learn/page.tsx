@@ -55,7 +55,7 @@ export default function Learn() {
         setCurrentWord(words[randomIndex]);
         setSelectedOption(null);
         setIsCorrect(null);
-      }, 1500);
+      }, 1000);
       return () => clearTimeout(nextWord);
     }
   }, [isCorrect]);
@@ -67,11 +67,11 @@ export default function Learn() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-screen gap-6">
+    <div className="flex flex-col justify-center items-center min-h-screen">
       {currentWord && (
-        <Card className="shadow-2xl shadow-accent-foreground border-none bg-[#8a817c] w-[580px] h-[410px]">
+        <Card className="shadow-2xl shadow-accent-foreground border-none bg-[#8a817c] h-[410px] w-full max-w-md md:max-w-lg lg:max-w-xl">
           <CardHeader>
-            <CardTitle className="text-center font-bold text-2xl pt-7">
+            <CardTitle className="text-center font-bold text-2xl mt-5">
               {currentWord.turkish}
             </CardTitle>
             <div>
@@ -89,7 +89,7 @@ export default function Learn() {
               />
             </CardAction>
           </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-3 justify-center items-start mt-10">
+          <CardContent className="grid grid-cols-2 gap-3 justify-center items-start mt-8">
             {options.map((opt, index) => (
               <div key={index}>
                 <Button

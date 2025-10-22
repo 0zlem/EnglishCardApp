@@ -138,12 +138,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
 
   if (items.length === 0) return null;
 
-  const headers: (keyof WordItem)[] = [
-    "English",
-    "Turkish",
-    "Example Sentence",
-    "Image",
-  ];
+  const headers: string[] = ["English", "Turkish", "Example Sentence", "Image"];
 
   const handleDeleteWord = async (itemId: string) => {
     const result = await deleteWord(itemId);
@@ -208,7 +203,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                         width={80}
                         height={80}
                         src={`http://localhost:5196${val}`}
-                        alt={item.English || "Word image"}
+                        alt={item.english || "Word image"}
                         className="object-cover overflow-hidden rounded-md"
                       />
                     ) : key === "english" || key === "exampleSentence" ? (

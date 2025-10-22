@@ -40,6 +40,15 @@ export function Navbar() {
       ),
       href: "/learn",
     },
+    {
+      title: "Match",
+      icon: (
+        <div className="relative h-full w-full">
+          <Image src="/match.png" alt="match" fill />
+        </div>
+      ),
+      href: "/match",
+    },
   ];
   return (
     <div className="fixed bottom-2 left-0 w-full z-1 flex justify-center">
