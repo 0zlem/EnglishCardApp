@@ -20,10 +20,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const formSchema = z.object({
-  english: z.string().min(1),
-  turkish: z.string().min(1),
-  exampleSentence: z.string(),
-  imageFile: z.any().optional(),
+  english: z.string().min(1, "English is required"),
+  turkish: z.string().min(1, "Turkish is required"),
+  exampleSentence: z.string().optional(),
+  imageUrl: z.any().optional(),
 });
 
 export const HoverEffect = ({
@@ -41,7 +41,7 @@ export const HoverEffect = ({
       english: "",
       turkish: "",
       exampleSentence: "",
-      imageFile: undefined,
+      imageUrl: undefined,
     },
   });
 
@@ -50,10 +50,13 @@ export const HoverEffect = ({
       const formData = new FormData();
       formData.append("English", values.english);
       formData.append("Turkish", values.turkish);
-      formData.append("ExampleSentence", values.exampleSentence);
 
-      if (values.imageFile) {
-        formData.append("ImageFile", values.imageFile);
+      if (values.imageUrl) {
+        formData.append("ImageFile", values.imageUrl);
+      }
+
+      if (values.exampleSentence) {
+        formData.append("ExampleSentence", values.exampleSentence);
       }
 
       await createWord(formData);
@@ -73,7 +76,7 @@ export const HoverEffect = ({
       title: "Example Sentence",
       name: "exampleSentence",
     },
-    { title: "Image", name: "imageFile" },
+    { title: "Image", name: "imageUrl" },
   ] as const;
 
   return (
@@ -118,7 +121,7 @@ export const HoverEffect = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {item.name === "imageFile" ? (
+                      {item.name === "imageUrl" ? (
                         <Input
                           type="file"
                           accept="image/*"

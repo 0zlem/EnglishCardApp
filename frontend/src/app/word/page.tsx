@@ -9,7 +9,7 @@ export default function Word() {
 
   const fetchWords = async () => {
     const data = await getAllWords();
-    setItems(data);
+    setItems(data.reverse());
   };
 
   useEffect(() => {

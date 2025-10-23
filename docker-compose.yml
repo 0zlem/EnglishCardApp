@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: ./backend
+    container_name: englishcard-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: always
+
+  frontend:
+    build: ./frontend
+    container_name: englishcard-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+    depends_on:
+      - backend
+    restart: always
