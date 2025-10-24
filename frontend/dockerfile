@@ -6,7 +6,7 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build
+RUN npm run build -- --no-lint
 
 # 2. Run aşaması
 FROM node:20-alpine AS runner

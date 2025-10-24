@@ -2,24 +2,23 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Proje dosyalarını tek tek kopyala (bağımlılıklar için)
-COPY ["src/EnglishCardApp.WebAPI/EnglishCardApp.WebAPI.csproj", "src/EnglishCardApp.WebAPI/"]
-COPY ["src/EnglishCardApp.Application/EnglishCardApp.Application.csproj", "src/EnglishCardApp.Application/"]
-COPY ["src/EnglishCardApp.Domain/EnglishCardApp.Domain.csproj", "src/EnglishCardApp.Domain/"]
-COPY ["src/EnglishCardApp.Infrastructure/EnglishCardApp.Infrastructure.csproj", "src/EnglishCardApp.Infrastructure/"]
+# .csproj dosyalarını kopyala ve restore et
+COPY ["src/EnglishCardApp.WebAPI/EnglishCardApp.WebAPI.csproj", "EnglishCardApp.WebAPI/"]
+COPY ["src/EnglishCardApp.Application/EnglishCardApp.Application.csproj", "EnglishCardApp.Application/"]
+COPY ["src/EnglishCardApp.Domain/EnglishCardApp.Domain.csproj", "EnglishCardApp.Domain/"]
+COPY ["src/EnglishCardApp.Infrastructure/EnglishCardApp.Infrastructure.csproj", "EnglishCardApp.Infrastructure/"]
 
-# Restore
-RUN dotnet restore "src/EnglishCardApp.WebAPI/EnglishCardApp.WEbAPI.csproj"
+RUN dotnet restore "EnglishCardApp.WebAPI/EnglishCardApp.WebAPI.csproj"
 
-# Şimdi tüm kaynak kodunu kopyala
-COPY . .
+# Tüm kaynak kodunu kopyala
+COPY src/ .
 
 # Build ve publish
-WORKDIR /src/src/EnglishCardApp.API
+WORKDIR /src/EnglishCardApp.WebAPI
 RUN dotnet publish -c Release -o /app/publish
 
 # 2. Runtime aşaması
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:9.0
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "EnglishCardApp.API.dll"]
+ENTRYPOINT ["dotnet", "EnglishCardApp.WebAPI.dll"]
