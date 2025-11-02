@@ -87,7 +87,15 @@ export default function FlashCard() {
           className="absolute shadow-2xl w-full h-full bg-[#001233] text-white flex justify-center text-center"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <CardHeader>
+          <CardHeader
+            onClick={() => {
+              const utterance = new SpeechSynthesisUtterance(
+                currentWord.english
+              );
+              utterance.lang = "en-US";
+              window.speechSynthesis.speak(utterance);
+            }}
+          >
             <CardTitle>
               <h4 className="text-4xl font-bold">
                 {currentWord?.english ?? "Loading..."}
